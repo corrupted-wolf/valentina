@@ -212,7 +212,7 @@ class TemptressBot(commands.Bot):
       em = discord.Embed(
         title='Support Mistress Valentina 💗',
         color=random.choice([0x9980FA, 0xED4C67, 0x9b59b6, 0xfd79a8, 0xe84393]),
-        description="**<:Domme:1167057873990336512> Unleash Your Darkest Desires**\n Mistress Valentina's Pleasure Realm awaits your contribution. By supporting my Ko-fi page, you gain access to a treasure trove of explicit content, tantalizing stories, and personalized rewards.\n\n**Your donations ensure that I can continue to dominate, push boundaries, and fulfill your deepest, most secret fantasies**. Donate today and surrender to the allure of Mistress Valentina!",
+        description="**<:domme:1178687097406754917> Unleash Your Darkest Desires**\n Mistress Valentina's Pleasure Realm awaits your contribution. By supporting my Ko-fi page, you gain access to a treasure trove of explicit content, tantalizing stories, and personalized rewards.\n\n**Your donations ensure that I can continue to dominate, push boundaries, and fulfill your deepest, most secret fantasies**. Donate today and surrender to the allure of Mistress Valentina!",
         url="https://ko-fi.com/kyrian"
       )
       em.set_thumbnail(url=self.user.display_avatar.url)
@@ -333,7 +333,7 @@ async def donate(it: discord.Interaction):
   em = discord.Embed(
     title='Support Mistress Valentina 💗',
     color=random.choice([0x9980FA, 0xED4C67, 0x9b59b6, 0xfd79a8, 0xe84393]),
-    description="**<:Domme:1167057873990336512> Unleash Your Darkest Desires**\n Mistress Valentina's Pleasure Realm awaits your contribution. By supporting my Ko-fi page, you gain access to a treasure trove of explicit content, tantalizing stories, and personalized rewards.\n\n**Your donations ensure that I can continue to dominate, push boundaries, and fulfill your deepest, most secret fantasies**. Donate today and surrender to the allure of Mistress Valentina!",
+    description="**<:domme:1178687097406754917> Unleash Your Darkest Desires**\n Mistress Valentina's Pleasure Realm awaits your contribution. By supporting my Ko-fi page, you gain access to a treasure trove of explicit content, tantalizing stories, and personalized rewards.\n\n**Your donations ensure that I can continue to dominate, push boundaries, and fulfill your deepest, most secret fantasies**. Donate today and surrender to the allure of Mistress Valentina!",
     url="https://ko-fi.com/kyrian"
   )
   em.set_thumbnail(url=bot.user.display_avatar.url)

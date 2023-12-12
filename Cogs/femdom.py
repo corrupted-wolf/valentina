@@ -35,7 +35,7 @@ class YesNoView(discord.ui.View):
       color=discord.Color.brand_green()
     ))
 
-  @discord.ui.button(label='No', style=ButtonStyle.red, emoji='🙅‍♀️')
+  @discord.ui.button(label='No', style=ButtonStyle.red, emoji='<:no:1178686922768519280>')
   async def no(self, it: discord.Interaction, btn: discord.ui.Button):
     await it.message.edit(view=None)
 
@@ -223,7 +223,7 @@ class Action:
     if y_n == 'yes' or y_n == 'y':
       await self.ctx.send('🫡')
     elif y_n == 'no' or y_n == 'n':
-      await self.ctx.send('🙅‍♀️')
+      await self.ctx.send('<:no:1178686922768519280>')
 
   async def own(self):
     """
@@ -443,7 +443,7 @@ class Action:
 
       restriction = f"> **Speech Restriction** : {gag}"
 
-      restriction = f"{restriction}\n> **NSFW Access** : {'🫡' if data[6] else '🙅‍♀️'}\n> **Emoji Access** : {'🫡' if data[4] else '🙅‍♀️'}\n> **Voice Channel Access** : {'🫡' if data[7] else '🙅‍♀️'}\n> **Channel tied too** : {'🙅‍♀️' if data[3] == 0 else f'🫡 <#{data[3]}>'}"
+      restriction = f"{restriction}\n> **NSFW Access** : {'🫡' if data[6] else '<:no:1178686922768519280>'}\n> **Emoji Access** : {'🫡' if data[4] else '<:no:1178686922768519280>'}\n> **Voice Channel Access** : {'🫡' if data[7] else '<:no:1178686922768519280>'}\n> **Channel tied too** : {'<:no:1178686922768519280>' if data[3] == 0 else f'🫡 <#{data[3]}>'}"
       badwords = [word[0] for word in database.get_badwords(member.id, member.guild.id)]
       badword_count = len(badwords)
       if badword_count > 0:
@@ -462,10 +462,10 @@ class Action:
       money = database.get_money(member.id, member.guild.id)
 
       embed.add_field(name='Cash',
-                      value=f"\n> <a:pinkcoin:1167061163515858954> {money[2]}\n> 💎 {money[3]}",
+                      value=f"\n> <:coin:1178687013583585343> {money[2]}\n> 💎 {money[3]}",
                       inline=False)
       sem.add_field(name='Cash',
-                      value=f"\n> <a:pinkcoin:1167061163515858954> {money[2]}\n> 💎 {money[3]}",
+                      value=f"\n> <:coin:1178687013583585343> {money[2]}\n> 💎 {money[3]}",
                       inline=False)
       embed.add_field(name='Restrictions', value=restriction, inline=False)
       sem.add_field(name='Restrictions', value=restriction, inline=False)
@@ -502,7 +502,7 @@ class Action:
     elif has_role(domme) or has_role(switch):  # domme status
       def get_status_emojis(member, guild):
         data = database.get_slave_from_DB(member, guild)[0]
-        return f"{'' if data[6] else '🔏'}  {'' if data[7] else '🎧'}  {'😶🔴' if data[2] in ['kitty', 'puppy', 'cow', 'pig', 'noaminal'] else ''}  {'' if data[4] else '🙅‍♀️'}"
+        return f"{'' if data[6] else '🔏'}  {'' if data[7] else '🎧'}  {'😶🔴' if data[2] in ['kitty', 'puppy', 'cow', 'pig', 'noaminal'] else ''}  {'' if data[4] else '<:no:1178686922768519280>'}"
 
       name = member.nick or member.name
       slaves_list = database.get_slaves(member.id, member.guild.id)
@@ -517,7 +517,7 @@ class Action:
 
       embed = discord.Embed(title=name, color=0xF2A2C0)
       embed.add_field(name='Cash',
-                      value=f"\n> <a:pinkcoin:1167061163515858954> {money[2]}\n> 💎 {money[3]} ",
+                      value=f"\n> <:coin:1178687013583585343> {money[2]}\n> 💎 {money[3]} ",
                       inline=False)
       embed.add_field(name='My Subs', value=owned_slaves, inline=False)
       sem.add_field(name='My Subs', value=owned_slaves, inline=False)
@@ -612,7 +612,7 @@ class Action:
         value = ''
         try:
           for x in range(((page - 1) * size), ((page - 1) * size) + size):
-            value = value + f"> <@{lb_list[x][0]}> {int(lb_list[x][2] / 10)} 💎   {lb_list[x][1]} <a:pinkcoin:1167061163515858954>\n"
+            value = value + f"> <@{lb_list[x][0]}> {int(lb_list[x][2] / 10)} 💎   {lb_list[x][1]} <:coin:1178687013583585343>\n"
           embed = discord.Embed(title="Leaderboard • Cash", description=value, color=0xF2A2C0)
         except IndexError:
           embed = discord.Embed(title="Leaderboard • Cash", description=value, color=0xF2A2C0)

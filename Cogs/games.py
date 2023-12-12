@@ -39,7 +39,7 @@ class Games(commands.Cog):
               coins_to_add = 100 + random.randint(0, 50)
               database.add_money(user_id, message.guild.id, coins_to_add, 0)
               embed = discord.Embed(
-                description=f"<@{user_id}> received {coins_to_add} <a:pinkcoin:1167061163515858954> for Bumping the server.",
+                description=f"<@{user_id}> received {coins_to_add} <:coin:1178687013583585343> for Bumping the server.",
                 color=0xF2A2C0)
               await message.channel.send(embed=embed)
               return
@@ -71,7 +71,7 @@ class Games(commands.Cog):
     if number < 0:
       if (-1 * number) == count:
         embed = discord.Embed(
-          description=f"{message.author.mention} you guessed the correct number and you earned 30 <a:pinkcoin:1167061163515858954>",
+          description=f"{message.author.mention} you guessed the correct number and you earned 30 <:coin:1178687013583585343>",
           color=0xF2A2C0)
         await message.reply(embed=embed)
         if database.is_botban(message.author.id) is None:
@@ -81,7 +81,7 @@ class Games(commands.Cog):
         data[3] = str(message.id)
         data[4] = '1'
         database.insert_config('counting', message.guild.id, '_'.join(data))
-        await message.add_reaction('<a:pinkcoin:1167061163515858954>')
+        await message.add_reaction('<:coin:1178687013583585343>')
       else:
         if count > number * -1:
           hint = f"Next number is {len(str(number * -1))} digit number and less than {count}"
@@ -104,7 +104,7 @@ class Games(commands.Cog):
         data[3] = str(message.id)
         data[4] = str(int(data[4]) + 1)
         database.insert_config('counting', message.guild.id, '_'.join(data))
-        await message.add_reaction('<a:pinkcoin:1167061163515858954>')
+        await message.add_reaction('<:coin:1178687013583585343>')
       else:
         await message.delete()
 
@@ -118,11 +118,11 @@ class Games(commands.Cog):
     database.insert_config('counting', ctx.guild.id, data)
     await channel.send('I will start with my fav number.')
     m = await channel.send('69')
-    await m.add_reaction('<a:pinkcoin:1167061163515858954>')
+    await m.add_reaction('<:coin:1178687013583585343>')
     embed = discord.Embed(title='Counting',
-                          description=f"{channel.mention} is the counting channel.\n**How to earn more pinkcoins <a:pinkcoin:1167061163515858954>**"
-                                      f"\n> Counting earns pinkcoins <a:pinkcoin:1167061163515858954>\n> Dommes can ruin by **`/ruin`** the game and earn pinkcoins <a:pinkcoin:1167061163515858954>"
-                                      f"\n> Guessing the correct number after ruing also gives pinkcoins <a:pinkcoin:1167061163515858954>",
+                          description=f"{channel.mention} is the counting channel.\n**How to earn more pinkcoins <:coin:1178687013583585343>**"
+                                      f"\n> Counting earns pinkcoins <:coin:1178687013583585343>\n> Dommes can ruin by **`/ruin`** the game and earn pinkcoins <:coin:1178687013583585343>"
+                                      f"\n> Guessing the correct number after ruing also gives pinkcoins <:coin:1178687013583585343>",
                           color=0xF2A2C0)
     embed.set_thumbnail(url=self.bot.user.display_avatar.url)
     await ctx.send(embed=embed)
@@ -158,7 +158,7 @@ class Games(commands.Cog):
         data_ = f"{-1 * random.randint(70, 1000)}_{ctx.channel.id}_0_0_0"
         database.insert_config('counting', ctx.guild.id, data_)
         embed = discord.Embed(
-          description=f"{ctx.author.mention} ruined the counting and earned {data[4]} <a:pinkcoin:1167061163515858954>"
+          description=f"{ctx.author.mention} ruined the counting and earned {data[4]} <:coin:1178687013583585343>"
                       f"\n\n\n> **Now guess the next number to earn more**", color=0xF2A2C0)
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         await ctx.send(embed=embed)
@@ -196,15 +196,15 @@ class Games(commands.Cog):
     coin = database.get_money(ctx.author.id, ctx.guild.id)[2]
     if coin < amount:
       await ctx.reply(
-        f"🧏‍♀️ really, you are broke, you only have {coin}<a:pinkcoin:1167061163515858954>")
+        f"🧏‍♀️ really, you are broke, you only have {coin}<:coin:1178687013583585343>")
     elif amount < 10:
       await ctx.reply(
-        f"🧏‍♀️ Grrr....,  10<a:pinkcoin:1167061163515858954> is minimum amount to transfer")
+        f"🧏‍♀️ Grrr....,  10<:coin:1178687013583585343> is minimum amount to transfer")
     else:
       database.add_money(member.id, ctx.guild.id, amount, 0)
       database.remove_money(ctx.author.id, ctx.guild.id, amount, 0)
       embed = discord.Embed(
-        description=f"{ctx.author.mention} gave {amount} <a:pinkcoin:1167061163515858954> to {member.mention}",
+        description=f"{ctx.author.mention} gave {amount} <:coin:1178687013583585343> to {member.mention}",
         color=0xF2A2C0)
       await ctx.send(embed=embed)
 
@@ -252,7 +252,7 @@ class Games(commands.Cog):
           await ctx.send(embed=simp_embed)
         else:
           embed = discord.Embed(
-            description=f"{ctx.author.mention} you need at least 100 <a:pinkcoin:1167061163515858954> to simp for {member.mention}",
+            description=f"{ctx.author.mention} you need at least 100 <:coin:1178687013583585343> to simp for {member.mention}",
             color=0xF2A2C0)
           await ctx.send(embed=embed)
       else:
@@ -288,7 +288,7 @@ class Games(commands.Cog):
     else:
       money = database.get_money(member.id, member.guild.id)
       embed = discord.Embed(title="Cash",
-                            description=f"\n> <a:pinkcoin:1167061163515858954> {money[2]}\n> 💎 {money[3]}",
+                            description=f"\n> <:coin:1178687013583585343> {money[2]}\n> 💎 {money[3]}",
                             color=0xF2A2C0)
       embed.set_thumbnail(url=member.display_avatar.url)
       await ctx.send(embed=embed)

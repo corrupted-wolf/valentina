@@ -246,7 +246,7 @@ class LockActionButton(discord.ui.Button):
     prison = self.ctx.guild.get_channel(int(database.get_config('prison', self.ctx.guild.id)[0]))
 
     embed = discord.Embed(
-      description=f"{self.ctx.author.mention} received 50 <a:pinkcoin:1167061163515858954> by locking {self.member.mention} in {prison.mention}",
+      description=f"{self.ctx.author.mention} received 50 <:coin:1178687013583585343> by locking {self.member.mention} in {prison.mention}",
       color=0x9479ED)
     await it.message.edit(embed=embed, view=None)
 
@@ -364,7 +364,7 @@ class Lock(commands.Cog):
       print(data)
       if message.content.lower() == data[4].lower():
         await message.add_reaction('👌')
-        await message.add_reaction('<a:pinkcoin:1167061163515858954>')
+        await message.add_reaction('<:coin:1178687013583585343>')
         sentence = make_image(message.content, message.author.id).replace('\n', ' ')
         sentence = sentence.replace('  ', ' ')
         database.update_lock(message.author.id, sentence, message.guild.id)
@@ -383,7 +383,7 @@ class Lock(commands.Cog):
           f"{message.author.mention} you have to write 👇 {int(data[3] - 1)} times to be free or you have to wait 2h or use **`s.escape`** to be free from prison. ||(it is case sensitive)||")
         await prison.send(file=discord.File(f'./Image/{message.author.id}.png'))
       else:
-        await message.add_reaction('🙅‍♀️')
+        await message.add_reaction('<:no:1178686922768519280>')
         if random.random() < 0.1:
           coins_to_remove = (2 + random.randint(0, 3))
           database.remove_money(message.author.id, message.guild.id, coins_to_remove, 0)

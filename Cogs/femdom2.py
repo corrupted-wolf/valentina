@@ -189,7 +189,7 @@ class Action:
     if y_n == 'yes' or y_n == 'y':
       await self.ctx.message.add_reaction('👌')
     elif y_n == 'no' or y_n == 'n':
-      await self.ctx.message.add_reaction('🙅‍♀️')
+      await self.ctx.message.add_reaction('<:no:1178686922768519280>')
 
   async def chastity(self, access, temp=False):
     channels = await self.ctx.guild.fetch_channels()

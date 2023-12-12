@@ -134,7 +134,7 @@ class ServerConfig(commands.Cog):
           database.insert_config(stage, it.guild.id, str(channel[0].id))
           rr_channel = channel[0]
 
-        DOMME_REACTION, SUB_REACTION, SWITCH_REACTION = '<:Domme:1167057873990336512>', '<:Sub:1155850020541710489>', '🔀'
+        DOMME_REACTION, SUB_REACTION, SWITCH_REACTION = '<:domme:1178687097406754917>', '<:sub:1178687169108398140>', '<:switch:1178687257457197066>'
 
         em = discord.Embed(
           title='Which side are you?',
