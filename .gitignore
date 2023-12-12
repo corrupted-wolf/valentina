@@ -3,7 +3,6 @@ Organization
 nekos
 youtube_dl
 .vscode
-.env
 config.ini
 discord.log
 rep_chessGame.py.txt

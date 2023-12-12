@@ -1,0 +1,12 @@
+[database]
+dsn = dbname=DBNAME user=DBUSER password=DBPASSWORD
+
+[bot]
+token = BOTTOKEN
+
+[personalityforge]
+api_key = PERSONALITYFORGEAPIKEY
+
+[openai]
+ # Official OpenAI API authentication
+api_key = OPENAIAPIKEY
