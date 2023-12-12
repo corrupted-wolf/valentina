@@ -139,7 +139,7 @@ class ServerConfig(commands.Cog):
         em = discord.Embed(
           title='Which side are you?',
           description=f"""
-          If you are a Domme choose {DOMME_REACTION}: \n
+          If you are a Domme choose: {DOMME_REACTION} \n
           If you are a Sub choose: {SUB_REACTION} \n
           If you are a Switch choose: {SWITCH_REACTION} \n
           """.strip(),

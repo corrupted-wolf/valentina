@@ -419,13 +419,16 @@ class Action:
 
     sem = discord.Embed(color=0xF2A2C0)
 
-    if has_role(slave) or has_role(switch):
+    if has_role(slave):# or has_role(switch)
       name = member.nick or member.name
       owner = database.get_owner(member.id, member.guild.id)
       if owner == 0:
         owner = f"Owned by no one, a poor lonely soul"
       else:
-        owner = f"Owned by " + ", ".join([f"<@{o}>" for o in owner])
+        if member.id == 104373103802466304:  # Kuro Usagi ID
+          owner = f"Owned by <@{owner}>"
+        else:
+          owner = f"Owned by <@{owner}>"
       data = database.get_slave_from_DB(member.id, member.guild.id)[0]
       gag = data[2]
       if gag == 'kitty':
@@ -499,7 +502,7 @@ class Action:
                         value=f"> **Points : {chess_data[5]}**\n> Won : {chess_data[2]}\n> Lost : {chess_data[3]}\n> Draw : {chess_data[4]}\n> total game : {total_games}\n**winning chance : {int(chess_data[2] / total_games * 100)}%**",
                         inline=False)
 
-    elif has_role(domme) or has_role(switch):  # domme status
+    elif has_role(domme):  # domme status  or has_role(switch)
       def get_status_emojis(member, guild):
         data = database.get_slave_from_DB(member, guild)[0]
         return f"{'' if data[6] else '🔏'}  {'' if data[7] else '🎧'}  {'😶🔴' if data[2] in ['kitty', 'puppy', 'cow', 'pig', 'noaminal'] else ''}  {'' if data[4] else '<:no:1178686922768519280>'}"
@@ -541,6 +544,104 @@ class Action:
         embed.add_field(name='Chess',
                         value=f"> **Points : {chess_data[5]}**\n> Won : {chess_data[2]}\n> Lost : {chess_data[3]}\n> Draw : {chess_data[4]}\n> total game : {total_games}\n**winning chance : {int(chess_data[2] / total_games * 100)}%**",
                         inline=False)
+    elif has_role(switch):# or has_role(switch)
+      def get_status_emojis(member, guild):
+        data = database.get_slave_from_DB(member, guild)[0]
+        return f"{'' if data[6] else '🔏'}  {'' if data[7] else '🎧'}  {'😶🔴' if data[2] in ['kitty', 'puppy', 'cow', 'pig', 'noaminal'] else ''}  {'' if data[4] else '<:no:1178686922768519280>'}"
+
+      name = member.nick or member.name
+      slaves_list = database.get_slaves(member.id, member.guild.id)
+      if not slaves_list:
+        owned_slaves = "> Until now, no one has proven themselves worthy of being owned by me"
+      else:
+        owned_slaves = "\n"
+        for slave in slaves_list:
+          owned_slaves += f"> {'' if slave[1] == 1000 else f'{slave[1]}°'} <@{str(slave[0])}>  {get_status_emojis(int(slave[0]), member.guild.id)}\n"
+
+      owner = database.get_owner(member.id, member.guild.id)
+      if owner == 0:
+        owner = f"Owned by no one, a poor lonely soul"
+      else:
+        if member.id == 104373103802466304:  # Kuro Usagi ID
+          owner = f"Owned by <@{owner}>"
+        else:
+          owner = f"Owned by <@{owner}>"
+      data = database.get_slave_from_DB(member.id, member.guild.id)[0]
+      gag = data[2]
+      if gag == 'kitty':
+        gag = '🐱 Kitty'
+      elif gag == 'puppy':
+        gag = '🐶 Puppy'
+      elif gag == 'cow':
+        gag = '🐮 Cow'
+      elif gag == 'pig':
+        gag = '🐷 Piggy'
+      elif gag == 'noaminal':
+        gag = '🫦'
+      else:
+        gag = 'None'
+
+      restriction = f"> **Speech Restriction** : {gag}"
+
+      restriction = f"{restriction}\n> **NSFW Access** : {'🫡' if data[6] else '<:no:1178686922768519280>'}\n> **Emoji Access** : {'🫡' if data[4] else '<:no:1178686922768519280>'}\n> **Voice Channel Access** : {'🫡' if data[7] else '<:no:1178686922768519280>'}\n> **Channel tied too** : {'<:no:1178686922768519280>' if data[3] == 0 else f'🫡 <#{data[3]}>'}"
+      badwords = [word[0] for word in database.get_badwords(member.id, member.guild.id)]
+      badword_count = len(badwords)
+      if badword_count > 0:
+        badwords = ', '.join(badwords)
+        restriction = restriction + f"\n> **Badwords ({badword_count})** : {badwords}"
+
+      lines_count = data[5]
+
+      embed = discord.Embed(title=name,
+                            description=f"{owner}",
+                            color=0xF2A2C0)
+      sem.title = name
+      sem.description = str(owner)
+
+
+      money = database.get_money(member.id, member.guild.id)
+
+      embed.add_field(name='Cash',
+                      value=f"\n> <:coin:1178687013583585343> {money[2]}\n> 💎 {money[3]}",
+                      inline=False)
+      sem.add_field(name='Cash',
+                      value=f"\n> <:coin:1178687013583585343> {money[2]}\n> 💎 {money[3]}",
+                      inline=False)
+      embed.add_field(name='Restrictions', value=restriction, inline=False)
+      sem.add_field(name='Restrictions', value=restriction, inline=False)
+      embed.add_field(name='My Subs', value=owned_slaves, inline=False)
+      sem.add_field(name='My Subs', value=owned_slaves, inline=False)
+
+
+      simp_list = database.get_simp(member.id, member.guild.id)
+      if simp_list is not None:
+        total_simp = simp_list[1]
+        simp_list = simp_list[0]
+        simp_list = sorted(simp_list, key=lambda simp_list: simp_list[1], reverse=True)[:5]
+        simps = ''
+        for s in simp_list:
+          simps = f"{simps}\n> <@{s[0]}> {int((s[1] / total_simp) * 100)}% ({s[1]})"
+        embed.add_field(name='I Simp for', value=simps, inline=False)
+        sem.add_field(name='I Simp for', value=simps, inline=False)
+
+      if lines_count > 0:
+        embed.add_field(name="Lines I wrote",
+                        value=f"> {lines_count} lines written <#{database.get_config('prison', member.guild.id)[0]}>",
+                        inline=False)
+        sem.add_field(name="Lines I wrote",
+                      value=f"> {lines_count} lines written <#{database.get_config('prison', member.guild.id)[0]}>",
+                      inline=False)
+      embed.set_thumbnail(url=member.display_avatar.url)
+      sem.set_thumbnail(url=member.display_avatar.url)
+
+      # * chess status
+      chess_data = database.get_chessdata(member.id, member.guild.id)
+      total_games = chess_data[2] + chess_data[3] + chess_data[4]
+      if total_games > 0:
+        embed.add_field(name='Chess',
+                        value=f"> **Points : {chess_data[5]}**\n> Won : {chess_data[2]}\n> Lost : {chess_data[3]}\n> Draw : {chess_data[4]}\n> total game : {total_games}\n**winning chance : {int(chess_data[2] / total_games * 100)}%**",
+                        inline=False)
+
 
     else:
       if database.get_config('domme', member.guild.id) == [0]:
@@ -794,7 +895,7 @@ class Punishment:
 
   async def is_tiechannel(self):
     """
-    deletes th emessage if tied
+    deletes the message if tied
     """
     if self.tiechannelid == 0 or self.channel.id == self.tiechannelid:
       return
@@ -1442,7 +1543,7 @@ class Femdom(commands.Cog):
 
       elif member_is > 300:  # Domme clearing badwords on other domme's owned slave
         embed = discord.Embed(title='Nah',
-                              description=f"{member.mention} is owned by somebody else it'stheirproperty.",
+                              description=f"{member.mention} is owned by somebody else it's their property.",
                               color=0xFF2030)
 
       elif member_is == 101:  # Slave clearing badwords on Slave
@@ -1519,7 +1620,7 @@ class Femdom(commands.Cog):
 
       elif member_is > 300:  # Domme nickname on other domme's owned slave
         embed = discord.Embed(title='Nah',
-                              description=f"{member.mention} is owned by somebody else it'stheirproperty.",
+                              description=f"{member.mention} is owned by somebody else it's their property.",
                               color=0xFF2030)
 
       elif member_is == 101:  # Slave nickname on Slave
@@ -1650,7 +1751,7 @@ class Femdom(commands.Cog):
 
       elif member_is > 300:  # Domme emoji allow on other domme's owned slave
         embed = discord.Embed(title='Nah',
-                              description=f"{member.mention} is owned by somebody else it'stheirproperty.",
+                              description=f"{member.mention} is owned by somebody else it's their property.",
                               color=0xFF2030)
 
       elif member_is == 101:  # Slave emoji allow on Slave
@@ -1735,7 +1836,7 @@ class Femdom(commands.Cog):
 
       elif member_is > 300:  # Domme tie on other domme's owned slave
         embed = discord.Embed(title='Nah',
-                              description=f"{member.mention} is owned by somebody else it'stheirproperty.",
+                              description=f"{member.mention} is owned by somebody else it's their property.",
                               color=0xFF2030)
 
       elif member_is == 101:  # Slave tie on Slave
@@ -1818,7 +1919,7 @@ class Femdom(commands.Cog):
 
       elif member_is > 300:  # Domme untie on other domme's owned slave
         embed = discord.Embed(title='Nah',
-                              description=f"{member.mention} is owned by somebody else it'stheirproperty.",
+                              description=f"{member.mention} is owned by somebody else it's their property.",
                               color=0xFF2030)
 
       elif member_is == 101:  # Slave untie on Slave
