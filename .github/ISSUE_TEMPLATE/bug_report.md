@@ -1,3 +1,12 @@
+---
+name: Bug report
+about: Bug report template
+title: "[BUG]"
+labels: ''
+assignees: ''
+
+---
+
 ## Issue Description
 
 [Provide a brief description of the issue or feature request]
