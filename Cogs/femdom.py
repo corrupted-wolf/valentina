@@ -419,16 +419,13 @@ class Action:
 
     sem = discord.Embed(color=0xF2A2C0)
 
-    if has_role(slave):# or has_role(switch)
+    if has_role(slave): #or has_role(switch): ***The command will stop here because of the "or" do not remove the #
       name = member.nick or member.name
       owner = database.get_owner(member.id, member.guild.id)
       if owner == 0:
         owner = f"Owned by no one, a poor lonely soul"
       else:
-        if member.id == 104373103802466304:  # Kuro Usagi ID
-          owner = f"Owned by <@{owner}>"
-        else:
-          owner = f"Owned by <@{owner}>"
+        owner = f"Owned by " + ", ".join([f"<@{o}>" for o in owner])
       data = database.get_slave_from_DB(member.id, member.guild.id)[0]
       gag = data[2]
       if gag == 'kitty':
@@ -544,7 +541,7 @@ class Action:
         embed.add_field(name='Chess',
                         value=f"> **Points : {chess_data[5]}**\n> Won : {chess_data[2]}\n> Lost : {chess_data[3]}\n> Draw : {chess_data[4]}\n> total game : {total_games}\n**winning chance : {int(chess_data[2] / total_games * 100)}%**",
                         inline=False)
-    elif has_role(switch):# or has_role(switch)
+    elif has_role(switch):# ***This is for the switches they get the same things has the subs and the doms
       def get_status_emojis(member, guild):
         data = database.get_slave_from_DB(member, guild)[0]
         return f"{'' if data[6] else '🔏'}  {'' if data[7] else '🎧'}  {'😶🔴' if data[2] in ['kitty', 'puppy', 'cow', 'pig', 'noaminal'] else ''}  {'' if data[4] else '<:no:1178686922768519280>'}"
@@ -1112,7 +1109,7 @@ class Femdom(commands.Cog):
         "202": lambda: f"Are you out of your mind, {member.mention} is a domme, So you can\' disown them",
         "201": lambda: f"Don\'t worry, {ctx.author.mention}, you did not own {member.mention} in the first place",
         ">300": lambda: f"You can't disown {member.mention}, is "
-                        f"owned by another Domme, <@{ctx.owner}>. ||but you can block {member.mention} <:giggle:968277440516481054>||",
+                        f"owned by another Domme, <@{member_is}>. ||but you can block {member.mention} <:giggle:968277440516481054>||",
         "101": lambda: f"You dumbass slave. You think you can disown when you are a slave, {ctx.author.mention}!"
                        f"how Pathetic, Ahahahaha I need to tell this joke to Shaman, he will love it. he is also a pathetic bitch.",
         "102": lambda: f"You shall not try such thing!, {ctx.author.mention} you are a slave,"
