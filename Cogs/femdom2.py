@@ -35,7 +35,7 @@ class BlindButton(discord.ui.Button):
 
       database.update_slaveDB(self.member.id, 'muff', True, self.ctx.guild.id)
 
-    # await it.channel.send('🫡')
+    # await it.channel.send('<:yes:1184312448912732180>')
 
     await it.response.edit_message(embed=embed, view=None)
 
@@ -89,7 +89,7 @@ class ChastityButton(discord.ui.Button):
 
       database.update_slaveDB(self.member.id, 'chastity', True, self.ctx.guild.id)
 
-    # await it.channel.send('🫡')
+    # await it.channel.send('<:yes:1184312448912732180>')
 
     await it.response.edit_message(embed=embed, view=None)
 
@@ -143,7 +143,7 @@ class MuffsButton(discord.ui.Button):
 
       database.update_slaveDB(self.member.id, 'muff', True, self.ctx.guild.id)
 
-    # await it.channel.send('🫡')
+    # await it.channel.send('<:yes:1184312448912732180>')
 
     await it.response.edit_message(embed=embed, view=None)
 

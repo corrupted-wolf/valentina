@@ -24,7 +24,7 @@ class YesNoView(discord.ui.View):
     self.action = action
     self.msg = msg
 
-  @discord.ui.button(label='Yes', style=ButtonStyle.green, emoji='🫡')
+  @discord.ui.button(label='Yes', style=ButtonStyle.green, emoji='<:yes:1184312448912732180>')
   async def yes(self, it: discord.Interaction, btn: discord.ui.Button):
     await it.response.defer()
     with contextlib.suppress(discord.NotFound):
@@ -59,7 +59,7 @@ class EmojiButton(discord.ui.Button):
                             description=f" {self.action.author.mention} took away {self.action.member.mention}'s emojis for next 1 hour.",
                             color=0xF2A2C0)
 
-    await it.channel.send('🫡')
+    await it.channel.send('<:yes:1184312448912732180>')
 
     await it.response.edit_message(embed=embed, view=None)
 
@@ -132,7 +132,7 @@ class GagButton(discord.ui.Button):
       print('doing')
       database.update_slaveDB(self.action.member.id, 'gag', self.key, self.action.member.guild.id)
       await interaction.response.edit_message(embed=self.embed, view=None)
-      await interaction.channel.send('🫡')
+      await interaction.channel.send('<:yes:1184312448912732180>')
       print('ddeed')
 
       # create task in the background
@@ -221,7 +221,7 @@ class Action:
     reacts check/cross to the message
     """
     if y_n == 'yes' or y_n == 'y':
-      await self.ctx.send('🫡')
+      await self.ctx.send('<:yes:1184312448912732180>')
     elif y_n == 'no' or y_n == 'n':
       await self.ctx.send('<:no:1178686922768519280>')
 
@@ -446,7 +446,7 @@ class Action:
 
       restriction = f"> **Speech Restriction** : {gag}"
 
-      restriction = f"{restriction}\n> **NSFW Access** : {'🫡' if data[6] else '<:no:1178686922768519280>'}\n> **Emoji Access** : {'🫡' if data[4] else '<:no:1178686922768519280>'}\n> **Voice Channel Access** : {'🫡' if data[7] else '<:no:1178686922768519280>'}\n> **Channel tied too** : {'<:no:1178686922768519280>' if data[3] == 0 else f'🫡 <#{data[3]}>'}"
+      restriction = f"{restriction}\n> **NSFW Access** : {'<:yes:1184312448912732180>' if data[6] else '<:no:1178686922768519280>'}\n> **Emoji Access** : {'<:yes:1184312448912732180>' if data[4] else '<:no:1178686922768519280>'}\n> **Voice Channel Access** : {'<:yes:1184312448912732180>' if data[7] else '<:no:1178686922768519280>'}\n> **Channel tied too** : {'<:no:1178686922768519280>' if data[3] == 0 else f'<:yes:1184312448912732180> <#{data[3]}>'}"
       badwords = [word[0] for word in database.get_badwords(member.id, member.guild.id)]
       badword_count = len(badwords)
       if badword_count > 0:
@@ -583,7 +583,7 @@ class Action:
 
       restriction = f"> **Speech Restriction** : {gag}"
 
-      restriction = f"{restriction}\n> **NSFW Access** : {'🫡' if data[6] else '<:no:1178686922768519280>'}\n> **Emoji Access** : {'🫡' if data[4] else '<:no:1178686922768519280>'}\n> **Voice Channel Access** : {'🫡' if data[7] else '<:no:1178686922768519280>'}\n> **Channel tied too** : {'<:no:1178686922768519280>' if data[3] == 0 else f'🫡 <#{data[3]}>'}"
+      restriction = f"{restriction}\n> **NSFW Access** : {'<:yes:1184312448912732180>' if data[6] else '<:no:1178686922768519280>'}\n> **Emoji Access** : {'<:yes:1184312448912732180>' if data[4] else '<:no:1178686922768519280>'}\n> **Voice Channel Access** : {'<:yes:1184312448912732180>' if data[7] else '<:no:1178686922768519280>'}\n> **Channel tied too** : {'<:no:1178686922768519280>' if data[3] == 0 else f'<:yes:1184312448912732180> <#{data[3]}>'}"
       badwords = [word[0] for word in database.get_badwords(member.id, member.guild.id)]
       badword_count = len(badwords)
       if badword_count > 0:
@@ -1112,7 +1112,7 @@ class Femdom(commands.Cog):
         "202": lambda: f"Are you out of your mind, {member.mention} is a domme, So you can\' disown them",
         "201": lambda: f"Don\'t worry, {ctx.author.mention}, you did not own {member.mention} in the first place",
         ">300": lambda: f"You can't disown {member.mention}, is "
-                        f"owned by another Domme, <@{member_is}>. ||but you can block {member.mention} <:giggle:968277440516481054>||",
+                        f"owned by another Domme, <@{ctx.owner}>. ||but you can block {member.mention} <:giggle:968277440516481054>||",
         "101": lambda: f"You dumbass slave. You think you can disown when you are a slave, {ctx.author.mention}!"
                        f"how Pathetic, Ahahahaha I need to tell this joke to Shaman, he will love it. he is also a pathetic bitch.",
         "102": lambda: f"You shall not try such thing!, {ctx.author.mention} you are a slave,"
@@ -1239,7 +1239,7 @@ class Femdom(commands.Cog):
             em = discord.Embed(title='They are already fullgagged!', description='Do you want to remove the gag?',
                                color=discord.Color.brand_red())
             return await ctx.send(embed=em, view=YesNoView(member, action=lambda m: m.remove_roles(role), msg=dict(
-              title='🫡 Gag Removed!',
+              title='<:yes:1184312448912732180> Gag Removed!',
               description=f'{member.mention} can now speak!'
             )))
 
@@ -1271,7 +1271,7 @@ class Femdom(commands.Cog):
           em = discord.Embed(title='They are already fullgagged!', description='Do you want to remove the gag?',
                              color=discord.Color.brand_red())
           return await ctx.send(embed=em, view=YesNoView(member, action=lambda m: m.remove_roles(role), msg=dict(
-            title='🫡 Gag Removed!',
+            title='<:yes:1184312448912732180> Gag Removed!',
             description=f'{member.mention} can now speak!'
           )))
 
