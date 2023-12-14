@@ -9,6 +9,7 @@ from Cogs.femdom import YesNoView
 
 from Utils.relationship import who_is
 
+
 class BlindButton(discord.ui.Button):
   def __init__(self, key, action, member, ctx, **kw):
     super().__init__(**kw)
@@ -34,7 +35,7 @@ class BlindButton(discord.ui.Button):
 
       database.update_slaveDB(self.member.id, 'muff', True, self.ctx.guild.id)
 
-    # await it.channel.send('🫡')
+    # await it.channel.send('<:yes:1184312448912732180>')
 
     await it.response.edit_message(embed=embed, view=None)
 
@@ -80,15 +81,15 @@ class ChastityButton(discord.ui.Button):
       embed = discord.Embed(description=f"{self.member.mention} can't access NSFW Channels in this server.",
                             color=0xFF2030)
       await self.action.chastity(access=False)
-      database.update_slaveDB(self.member.id, 'chastity', True, self.ctx.guild.id)
+      database.update_slaveDB(self.member.id, 'chastity', False, self.ctx.guild.id)
     elif self.key == 'unlock':
       embed = discord.Embed(description=f"{self.member.mention} can access NSFW Channels in this server.",
                             color=0x08FF08)
       await self.action.chastity(access=True)
 
-      database.update_slaveDB(self.member.id, 'chastity', False, self.ctx.guild.id)
+      database.update_slaveDB(self.member.id, 'chastity', True, self.ctx.guild.id)
 
-    # await it.channel.send('🫡')
+    # await it.channel.send('<:yes:1184312448912732180>')
 
     await it.response.edit_message(embed=embed, view=None)
 
@@ -105,13 +106,13 @@ class ChastityView(discord.ui.View):
     dsbl = dbrsp[0][6]
 
     self.add_item(
-      ChastityButton(style=ButtonStyle.red, label='Chastity Lock', emoji='🔒', key='lock', disabled=dsbl, ctx=ctx,
+      ChastityButton(style=ButtonStyle.red, label='Chastity Lock', emoji='🔒', key='lock', disabled=not dsbl, ctx=ctx,
                      member=member,
                      action=action),
     )
 
     self.add_item(
-      ChastityButton(style=ButtonStyle.green, label='Chastity Unlock', emoji='🔓', key='unlock', disabled=not dsbl,
+      ChastityButton(style=ButtonStyle.green, label='Chastity Unlock', emoji='🔓', key='unlock', disabled= dsbl,
                      ctx=ctx,
                      member=member, action=action),
     )
@@ -130,19 +131,19 @@ class MuffsButton(discord.ui.Button):
 
   async def callback(self, it: discord.Interaction):
 
-    if self.key == 'rem':
+    if self.key == 'give':
       embed = discord.Embed(description=f"{self.member.mention} can't connect to any Voice Channels in this server.",
                             color=0xFF2030)
       await self.action.muff(False)
       database.update_slaveDB(self.member.id, 'muff', False, self.ctx.guild.id)
-    elif self.key == 'give':
+    elif self.key == 'rem':
       embed = discord.Embed(description=f"{self.member.mention} can connect to Voice Channels in this server.",
                             color=0x08FF08)
       await self.action.muff(True)
 
       database.update_slaveDB(self.member.id, 'muff', True, self.ctx.guild.id)
 
-    # await it.channel.send('🫡')
+    # await it.channel.send('<:yes:1184312448912732180>')
 
     await it.response.edit_message(embed=embed, view=None)
 
@@ -156,12 +157,12 @@ class MuffsView(discord.ui.View):
     dsbl = database.get_slave_from_DB(member.id, ctx.guild.id)[0][7]
 
     self.add_item(
-      MuffsButton(style=ButtonStyle.green, label='Give Ear Muffs', key='give', disabled=dsbl, ctx=ctx, member=member,
+      MuffsButton(style=ButtonStyle.green, label='Give Ear Muffs', key='give', disabled=not dsbl, ctx=ctx, member=member,
                   action=action),
     )
 
     self.add_item(
-      MuffsButton(style=ButtonStyle.red, label='Remove Ear Muffs', key='rem', disabled=not dsbl, ctx=ctx, member=member,
+      MuffsButton(style=ButtonStyle.red, label='Remove Ear Muffs', key='rem', disabled= dsbl, ctx=ctx, member=member,
                   action=action),
     )
 
@@ -197,16 +198,16 @@ class Action:
       if channel.is_nsfw():
         if access:
           await channel.set_permissions(self.member, overwrite=None)
-          # database.update_slaveDB(self.member.id, 'chastity', True, self.ctx.guild.id)
+          database.update_slaveDB(self.member.id, 'chastity', True, self.ctx.guild.id)
         else:
           await channel.set_permissions(self.member, view_channel=False)
-          # database.update_slaveDB(self.member.id, 'chastity', False, self.ctx.guild.id)
+          database.update_slaveDB(self.member.id, 'chastity', False, self.ctx.guild.id)
     if temp:
       await asyncio.sleep(1 * 60 * 60)
       for channel in channels:
         if channel.is_nsfw():
           await channel.set_permissions(self.member, overwrite=None)
-          # database.update_slaveDB(self.member.id, 'chastity', True, self.ctx.guild.id)
+          database.update_slaveDB(self.member.id, 'chastity', True, self.ctx.guild.id)
 
   async def muff(self, access):
     channels = await self.ctx.guild.fetch_channels()

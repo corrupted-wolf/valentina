@@ -268,7 +268,7 @@ class LockActionButton(discord.ui.Button):
   async def callback(self, it: discord.Interaction):
     if self.key in ['praise', 'degrade', 'custom']:
       await self.first_stage(it)
-    elif self.key in ['easy', 'medium', 'hard', 'customlines']:
+    elif self.key in ['easy', 'medium', 'hard', 'custom lines']:
       await self.second_stage(it)
 
 
